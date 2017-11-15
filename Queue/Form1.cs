@@ -35,11 +35,11 @@ namespace Queue
             brokerUri = "tcp://amq.donbest.com:61616";
            
 
-            IConnectionFactory factory = new NMSConnectionFactory("tcp://localhost:61616");
-            IConnection connection = factory.CreateConnection(userName,password);
+            IConnectionFactory factory = new NMSConnectionFactory(brokerUri);
+            IConnection connection = factory.CreateConnection(userName, password);
             connection.Start();
             ISession session = connection.CreateSession(AcknowledgementMode.AutoAcknowledge);
-            IDestination destination = SessionUtil.GetDestination(session, "ExampleQueue");
+            IDestination destination = session.GetTopic(topic);
             IMessageConsumer receiver = session.CreateConsumer(destination);
             receiver.Listener += new MessageListener(Message_Listener);
 
