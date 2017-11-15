@@ -1,4 +1,4 @@
-﻿namespace AMQQueueV1
+﻿namespace QueueB
 {
     partial class Form1
     {
@@ -45,4 +45,3 @@
         #endregion
     }
 }
-
