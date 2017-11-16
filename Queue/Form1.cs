@@ -22,11 +22,14 @@ namespace Queue
 {
     public partial class Form1 : Form
     {
-
+        DateTime inititalTime = DateTime.Now;
+        string hour = DateTime.Now.ToString();
         string query, query2;
         string attrValue;
         line lineClass;
         webReq theWebRequest = new webReq();
+        int numberMessages;
+
         public Form1()
         {
             InitializeComponent();
@@ -504,20 +507,21 @@ namespace Queue
             ITextMessage txtMsg = message as ITextMessage;
             //MessageBox.Show(txtMsg.Text);
             string body = txtMsg.Text;
+            Console.WriteLine(body);
 
 
             extractXMLText(body);
 
 
-            extractXML(body);
+            //extractXML(body);
+
+           numberMessages= processTxtMessage(numberMessages, txtMsg);
 
 
+            //IObjectMessage objMessage = message as IObjectMessage;
+            //OperatorRequestObject OperatorRequestObject = ((BusinessObjects.OperatorRequestObject)(objMessage.Body));
 
-
-            IObjectMessage objMessage = message as IObjectMessage;
-            OperatorRequestObject OperatorRequestObject = ((BusinessObjects.OperatorRequestObject)(objMessage.Body));
-
-            processTxtMessage(0, txtMsg);
+          
 
         }
 
@@ -535,10 +539,14 @@ namespace Queue
 
         public int processTxtMessage(int linesCount, IMessage msg)
         {
+            Console.WriteLine("");
             Dictionary<string, string> dictionaryQuery = new Dictionary<string, string>();
 
             if (msg is ITextMessage)
+              
             {
+              
+
                 int cont = 0;
                 query = "insert into ";
                 query2 = "values ";
@@ -547,7 +555,7 @@ namespace Queue
                 string body = txtMsg.Text;
 
 
-                Console.WriteLine(body);
+                Console.WriteLine("PROCESSING message "+ numberMessages + "from + " + hour + body);
 
 
                 extractXMLText(body);
