@@ -51,6 +51,7 @@ namespace Queue
             //pwd = “g8bridge”
             //action = Request.Form("action")
 
+            lineClass = new line();
 
 
 
@@ -563,7 +564,7 @@ namespace Queue
                 {
 
 
-                    extractXML(body);
+                    //extractXML(body);
                 }
                 catch (Exception ex)
                 {
