@@ -11,7 +11,7 @@ namespace Queue
     {
         private static readonly HttpClient client = new HttpClient();
 
-        public async Task asyncasyncmakePost(string user, string pwd, string action, string rot, string sport, string period, string lineTypeID, string visitorML, string homeML, string total, string totalOver, string totalUnder, string visitorSpread, string visitorSpreadOdds, string homeSpread, string homeSpreadOdds, string draw, string sportBookId, string date)
+        public async Task asyncasyncmakePost(string user, string pwd, string action, string rot, string sport, string period, string lineTypeID, string visitorML, string homeML, string total, string totalOver, string totalUnder, string visitorSpread, string visitorSpreadOdds, string homeSpread, string homeSpreadOdds, string draw, string sportBookId, string date, string leagueid)
 
         {
             var values = new Dictionary<string, string>
@@ -34,7 +34,8 @@ namespace Queue
                    { "hso", homeSpreadOdds },
                    { "draw", draw },
                    { "sbkid", sportBookId },
-                { "gdt", date}
+                { "gdt", date},
+                  { "leagueid", leagueid}
 
             };
 
@@ -49,7 +50,7 @@ namespace Queue
                 Console.WriteLine(responseContent);
             }
 
-            Console.WriteLine(" u :" + user + ", p :" + pwd + ", action: " + action + ",rot: " + rot + ",sid: " + sport + ",pid: " + period + ",lid: " + lineTypeID + ",vml: " + visitorML + ",hml: " + homeML + ",ttl: " + total + ",tov: " + totalOver + ",tun: " + totalUnder + ",vsd: " + visitorSpread + ",vso: " + visitorSpreadOdds + ",hsd: " + homeSpread + ",hso: " + homeSpreadOdds + ",draw: " + draw + ",sbkid: " + sportBookId + ",gdt: " + date + "");
+            Console.WriteLine(" u :" + user + ", p :" + pwd + ", action: " + action + ",rot: " + rot + ",sid: " + sport + ",pid: " + period + ",lid: " + lineTypeID + ",vml: " + visitorML + ",hml: " + homeML + ",ttl: " + total + ",tov: " + totalOver + ",tun: " + totalUnder + ",vsd: " + visitorSpread + ",vso: " + visitorSpreadOdds + ",hsd: " + homeSpread + ",hso: " + homeSpreadOdds + ",draw: " + draw + ",sbkid: " + sportBookId + ",gdt: " + date + ",leagueid: " + leagueid + "");
 
         }
 

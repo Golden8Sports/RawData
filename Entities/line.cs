@@ -24,7 +24,7 @@ namespace Entities
         public int event_id { get; set; }
         public Nullable<short> sportsbook { get; set; }
         public string description { get; set; }
-        public byte league_id { get; set; }
+        public int league_id { get; set; }
         public int sport_id { get; set; }
         public Nullable<int> away_team_id { get; set; }
         public Nullable<int> home_team_id { get; set; }
