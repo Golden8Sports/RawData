@@ -288,8 +288,8 @@ namespace Queue
             ITextMessage textMessage = message as ITextMessage;
             string text = textMessage.Text;
             Console.WriteLine(text);
-            //this.extractXMLText(text);
-            //this.numberMessages = this.processTxtMessage(this.numberMessages, (IMessage)textMessage);
+            this.extractXMLText(text);
+            this.numberMessages = this.processTxtMessage(this.numberMessages, (IMessage)textMessage);
         }
 
 

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BusinessObjects;
 using Apache.NMS;
 using Apache.NMS.Util;
+using System.Xml;
 
 namespace QueueB
 {
@@ -66,7 +67,10 @@ namespace QueueB
 
             Console.WriteLine(body);
             //this.numberMessages = this.processTxtMessage(this.numberMessages, (IMessage)textMessage);
+            
         }
+
+        
     }
 
 
