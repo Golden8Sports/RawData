@@ -3,46 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BusinessObjects;
+
+using System.Threading;
 using Apache.NMS;
 using Apache.NMS.Util;
-using System.Threading;
 
-namespace ConsoleApplication1
+namespace ActiveMQ
 {
-    class Program
+    public class TestMain
     {
 
         protected static AutoResetEvent semaphore = new AutoResetEvent(false);
         protected static ITextMessage message = null;
-        protected static TimeSpan receiveTimeout = TimeSpan.FromSeconds(1000);
+        protected static TimeSpan receiveTimeout = TimeSpan.FromSeconds(10);
 
         public static void Main(string[] args)
         {
-            Program p = new Program();
-
-            p.receiver();
-        }
-        
-
-        protected static void OnMessage(IMessage receivedMsg)
-        {
-            message = receivedMsg as ITextMessage;
-            semaphore.Set();
-        }
-
-        private void Message_Listener(IMessage message)
-        {
-            ITextMessage textMessage = message as ITextMessage;
-            string text = textMessage.Text;
-            Console.WriteLine(text);
-            //this.extractXMLText(text);
-            //this.numberMessages = this.processTxtMessage(this.numberMessages, (IMessage)textMessage);
-        }
-
-        private void receiver()
-        {
-
+            // Example connection strings:
+            //    activemq:tcp://activemqhost:61616
+            //    stomp:tcp://activemqhost:61613
+            //    ems:tcp://tibcohost:7222
+            //    msmq://localhost
             string topic = "com.donbest.message.public.xmleddie";
             string userName;
             string password;
@@ -52,13 +33,8 @@ namespace ConsoleApplication1
             userName = "xmleddie";
             password = "xmlfootball";
             brokerUri = "tcp://amq.donbest.com:61616";
-            // Example connection strings:
-            //    activemq:tcp://activemqhost:61616
-            //    stomp:tcp://activemqhost:61613
-            //    ems:tcp://tibcohost:7222
-            //    msmq://localhost
 
-            Uri connecturi = new Uri("activemq:tcp://activemqhost:61616");
+            Uri connecturi = new Uri("activemq:tcp://amq.donbest.com:61616");
 
             Console.WriteLine("About to connect to " + connecturi);
 
@@ -66,8 +42,8 @@ namespace ConsoleApplication1
 
             IConnectionFactory factory = new NMSConnectionFactory(brokerUri);
 
-            IConnection connection = factory.CreateConnection(userName, password);
-            using (ISession session = connection.CreateSession(AcknowledgementMode.AutoAcknowledge))
+            using (IConnection connection = factory.CreateConnection())
+            using (ISession session = connection.CreateSession())
             {
                 // Examples for getting a destination:
                 //
@@ -93,27 +69,27 @@ namespace ConsoleApplication1
                 //    IDestination destination = session.GetDestination("topic://FOO.BAR");
                 //    Debug.Assert(destination is ITopic);
 
-                IDestination destination = session.GetTopic(topic);
+                IDestination destination = SessionUtil.GetDestination(session, "queue://FOO.BAR");
 
                 Console.WriteLine("Using destination: " + destination);
 
                 // Create a consumer and producer
                 using (IMessageConsumer consumer = session.CreateConsumer(destination))
-                //using (IMessageProducer producer = session.CreateProducer(destination))
+                using (IMessageProducer producer = session.CreateProducer(destination))
                 {
                     // Start the connection so that messages will be processed.
                     connection.Start();
                     //producer.Persistent = true;
-                    //producer.RequestTimeout = receiveTimeout;
+                    producer.RequestTimeout = receiveTimeout;
                     consumer.Listener += new MessageListener(OnMessage);
 
                     // Send a message
-                    //ITextMessage request = session.CreateTextMessage("Hello World!");
-                    //request.NMSCorrelationID = "abc";
-                    //request.Properties["NMSXGroupID"] = "cheese";
-                    //request.Properties["myHeader"] = "Cheddar";
+                    ITextMessage request = session.CreateTextMessage("Hello World!");
+                    request.NMSCorrelationID = "abc";
+                    request.Properties["NMSXGroupID"] = "cheese";
+                    request.Properties["myHeader"] = "Cheddar";
 
-                    //producer.Send(request);
+                    producer.Send(request);
 
                     // Wait for the message
                     semaphore.WaitOne((int)receiveTimeout.TotalMilliseconds, true);
@@ -129,10 +105,11 @@ namespace ConsoleApplication1
                 }
             }
         }
+
+        protected static void OnMessage(IMessage receivedMsg)
+        {
+            message = receivedMsg as ITextMessage;
+            semaphore.Set();
+        }
     }
-
- 
-
-
-
 }

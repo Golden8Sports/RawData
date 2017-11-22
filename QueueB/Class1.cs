@@ -11,6 +11,19 @@ namespace QueueB
 {
     public class Class1
     {
+
+        private DateTime inititalTime = DateTime.Now;
+        private string hour = DateTime.Now.ToString();
+        //private webReq theWebRequest = new webReq();
+        //private IContainer components = (IContainer)null;
+        private string query;
+        private string query2;
+        private string attrValue;
+        //private line lineClass;
+        private int numberMessages;
+        //private Label label1;
+        //private Label label2;
+
         static void Main(string[] args)
         {
             Class1 p = new Class1();
@@ -48,11 +61,11 @@ namespace QueueB
             string body = txtMsg.Text;
 
 
-            IObjectMessage objMessage = message as IObjectMessage;
-            OperatorRequestObject OperatorRequestObject = ((BusinessObjects.OperatorRequestObject)(objMessage.Body));
+            //IObjectMessage objMessage = message as IObjectMessage;
+            //OperatorRequestObject OperatorRequestObject = ((BusinessObjects.OperatorRequestObject)(objMessage.Body));
 
             Console.WriteLine(body);
-
+            //this.numberMessages = this.processTxtMessage(this.numberMessages, (IMessage)textMessage);
         }
     }
 

@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayer", "DataLayer\Data
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{5A5F0E82-D421-44EB-BBAA-D0D8B6419ADE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActiveMQ", "ActiveMQ\ActiveMQ.csproj", "{F18D093B-CBFD-40D6-93EE-8B0DB22366EE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{5A5F0E82-D421-44EB-BBAA-D0D8B6419ADE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A5F0E82-D421-44EB-BBAA-D0D8B6419ADE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A5F0E82-D421-44EB-BBAA-D0D8B6419ADE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F18D093B-CBFD-40D6-93EE-8B0DB22366EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F18D093B-CBFD-40D6-93EE-8B0DB22366EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F18D093B-CBFD-40D6-93EE-8B0DB22366EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F18D093B-CBFD-40D6-93EE-8B0DB22366EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
