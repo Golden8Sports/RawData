@@ -15,67 +15,50 @@ namespace DataLayer
 
         public SqlConnection getConn()
         {
-            if (con.State == ConnectionState.Closed)
-            {
-                con.Open();
-            }
-            return con;
+            if (con.State == ConnectionState.Closed){ con.Open();}  return con;          
         }
 
         public SqlConnection getConn3()
         {
-            if (con3.State == ConnectionState.Closed)
-            {
-                con3.Open();
-            }
-            return con3;
+            if (con3.State == ConnectionState.Closed){ con3.Open();} return con3;       
         }
 
         public int ExeNonQuery(SqlCommand cmd)
         {
             cmd.Connection = getConn();
             int rowsaffected = -1;
-
-            rowsaffected = cmd.ExecuteNonQuery();
+            try { rowsaffected = cmd.ExecuteNonQuery(); } catch (Exception) { }
             con.Close();
             return rowsaffected;
-
         }
-
-
 
         public string ExeNonQueryWithResult(string query)
         {
+           
             using (con)
             using (SqlCommand cmd = con.CreateCommand())
             {
-                cmd.CommandText = query;
-                cmd.CommandType = CommandType.Text;
-                cmd.Parameters.AddWithValue("SeqName", "SeqNameValue");
-
-                var returnParameter = cmd.Parameters.Add("@ReturnVal", SqlDbType.Int);
-                returnParameter.Direction = ParameterDirection.ReturnValue;
-
-                con.Open();
-                cmd.ExecuteNonQuery();
-                var result = returnParameter.Value;
+                    cmd.CommandText = query;
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.AddWithValue("SeqName", "SeqNameValue");
+                    var returnParameter = cmd.Parameters.Add("@ReturnVal", SqlDbType.Int);
+                    returnParameter.Direction = ParameterDirection.ReturnValue;
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    var result = returnParameter.Value;
 
                 return (result.ToString());
-
             }
-
         }
+
         public object ExeScalar(string insertString)
         {
-
             SqlCommand cmd = new SqlCommand(insertString, con);
             cmd.Connection = getConn();
             object obj = -1;
             obj = cmd.ExecuteScalar();
             con.Close();
             return obj;
-
-
         }
 
         public DataTable ExeReader(string query)
@@ -84,12 +67,10 @@ namespace DataLayer
             cmd.Connection = getConn();
             SqlDataReader sdr;
             DataTable dt = new DataTable();
-
             sdr = cmd.ExecuteReader();
             dt.Load(sdr);
             con.Close();
             return dt;
-
         }
 
         public DataTable ExeReaderWithReturnValue(string query)
@@ -98,36 +79,28 @@ namespace DataLayer
             cmd.Connection = getConn();
             SqlDataReader sdr;
             DataTable dt = new DataTable();
-
             var returnParameter = cmd.Parameters.Add("@ReturnVal", SqlDbType.Int);
             returnParameter.Direction = ParameterDirection.ReturnValue;
-
             sdr = cmd.ExecuteReader();
             dt.Load(sdr);
             con.Close();
             return dt;
-
         }
 
 
         public DataTable ExeSPWithResults(string storedProcedureName, IDictionary<string, string> parametersDictionary)
-
         {
 
             using (con)
             {
                 using (SqlCommand cmd = new SqlCommand(storedProcedureName, con))
                 {
-
                     cmd.CommandType = CommandType.StoredProcedure;
-
 
                     foreach (KeyValuePair<string, string> entry in parametersDictionary)
                     {
-                        // do something with entry.Value or entry.Key
                         cmd.Parameters.AddWithValue(entry.Key, entry.Value);
                     }
-
 
                     con.Open();
 
@@ -141,33 +114,25 @@ namespace DataLayer
                     return dt;
                 }
             }
-
         }
 
+
         public DataTable ExeSPWithResultsdb2(string storedProcedureName, IDictionary<string, string> parametersDictionary)
-
         {
-
             using (con3)
             {
                 using (SqlCommand cmd = new SqlCommand(storedProcedureName, con3))
                 {
-
                     cmd.CommandType = CommandType.StoredProcedure;
-
 
                     foreach (KeyValuePair<string, string> entry in parametersDictionary)
                     {
-                        // do something with entry.Value or entry.Key
                         cmd.Parameters.AddWithValue(entry.Key, entry.Value);
                     }
 
-
                     con3.Open();
-
                     SqlDataReader sdr;
                     DataTable dt = new DataTable();
-
                     sdr = cmd.ExecuteReader();
                     cmd.Connection = con3;
                     dt.Load(sdr);
@@ -175,10 +140,6 @@ namespace DataLayer
                     return dt;
                 }
             }
-
         }
-
-
-
     }
 }

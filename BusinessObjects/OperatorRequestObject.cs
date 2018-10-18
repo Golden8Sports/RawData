@@ -8,20 +8,12 @@ namespace BusinessObjects
 {
     [Serializable]
     public class OperatorRequestObject
-
     {
-        string shortcode;
+        private string shortcode;
         public string Shortcode
         {
-            get
-            {
-                return shortcode;
-            }
-
-            set
-            {
-                shortcode = value;
-            }
+            get{ return shortcode;}
+            set{ shortcode = value;}
         }
     }
 }

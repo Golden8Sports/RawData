@@ -45,30 +45,6 @@ namespace ActiveMQ
             using (IConnection connection = factory.CreateConnection())
             using (ISession session = connection.CreateSession())
             {
-                // Examples for getting a destination:
-                //
-                // Hard coded destinations:
-                //    IDestination destination = session.GetQueue("FOO.BAR");
-                //    Debug.Assert(destination is IQueue);
-                //    IDestination destination = session.GetTopic("FOO.BAR");
-                //    Debug.Assert(destination is ITopic);
-                //
-                // Embedded destination type in the name:
-                //    IDestination destination = SessionUtil.GetDestination(session, "queue://FOO.BAR");
-                //    Debug.Assert(destination is IQueue);
-                //    IDestination destination = SessionUtil.GetDestination(session, "topic://FOO.BAR");
-                //    Debug.Assert(destination is ITopic);
-                //
-                // Defaults to queue if type is not specified:
-                //    IDestination destination = SessionUtil.GetDestination(session, "FOO.BAR");
-                //    Debug.Assert(destination is IQueue);
-                //
-                // .NET 3.5 Supports Extension methods for a simplified syntax:
-                //    IDestination destination = session.GetDestination("queue://FOO.BAR");
-                //    Debug.Assert(destination is IQueue);
-                //    IDestination destination = session.GetDestination("topic://FOO.BAR");
-                //    Debug.Assert(destination is ITopic);
-
                 IDestination destination = SessionUtil.GetDestination(session, "queue://FOO.BAR");
 
                 Console.WriteLine("Using destination: " + destination);

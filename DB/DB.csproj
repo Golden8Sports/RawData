@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{60136075-1DF8-46A1-ADEB-3406DB6CADF6}</ProjectGuid>
+    <ProjectGuid>{7B8898C6-1B00-49B2-A341-FDD3088BD1AF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BusinessObjects</RootNamespace>
-    <AssemblyName>BusinessObjects</AssemblyName>
+    <RootNamespace>DB</RootNamespace>
+    <AssemblyName>DB</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -40,8 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="OperatorRequestObject.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Connection\csComponentsConnection.cs" />
+    <Compile Include="Connection\csConnection.cs" />
+    <Compile Include="Entities\csLine.cs" />
+    <Compile Include="Logic\blLine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
